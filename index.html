@@ -448,6 +448,59 @@
             font-size: 0.85rem;
         }
 
+        /* Certificates */
+        .certificate-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .certificate-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .certificate-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .certificate-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+
+        .certificate-org {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .certificate-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .certificate-link {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .certificate-link:hover {
+            text-decoration: underline;
+        }
+
         /* Blog Section */
         .blog-grid {
             display: grid;
@@ -688,6 +741,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#certificates">Certificates</a></li>
                 <li><a href="#blog">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -811,6 +865,48 @@
                     <h4>Data Engineer — Bright Future Program</h4>
                     <p class="date">Bootcamp Program</p>
                     <p>Intensive program covering ETL pipelines, database design, SQL, Python, DevOps, and cloud infrastructure for scalable data systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Certificate Section -->
+    <section class="section" id="certificates">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 2rem;">Certificates</h2>
+
+            <div class="certificate-list">
+                <!-- Certificate 1 -->
+                <div class="certificate-card fade-up">
+                    <h3>Prerequisite Course: Python</h3>
+                    <p class="certificate-org">Pacmann Academy</p>
+                    <p class="certificate-desc">
+                        Mastered Python fundamentals, OOP, Git, and database design through
+                        real-world streaming and membership system projects.
+                    </p>
+                    <a href="#" class="https://sertifikat.pacmann.ai/uHP0duRpK3Yd3L7" target="_blank">View Certificate →</a>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="certificate-card fade-up">
+                    <h3>Relational Database (SQL)</h3>
+                    <p class="certificate-org">Pacmann Academy</p>
+                    <p class="certificate-desc">
+                        Mastered advanced SQL, database design, and optimization by building
+                        scalable food delivery and e-commerce systems.
+                    </p>
+                    <a href="#" class="https://sertifikat.pacmann.ai/PeL8SMGiZjx1htj" target="_blank">View Certificate →</a>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="certificate-card fade-up">
+                    <h3>Introduction to Data Engineering</h3>
+                    <p class="certificate-org">Pacmann Academy</p>
+                    <p class="certificate-desc">
+                        Mastered data wrangling, web scraping, and ETL pipelines using Pandas
+                        and Luigi for production-ready data ingestion.
+                    </p>
+                    <a href="#" class="https://sertifikat.pacmann.ai/AhSBPItwuZypXQR" target="_blank">View Certificate →</a>
                 </div>
             </div>
         </div>
