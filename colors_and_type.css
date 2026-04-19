@@ -1,0 +1,192 @@
+/* =========================================================================
+   Naufal Portfolio — Design Tokens
+   Extracted from naufalzainula21.github.io (index / portfolio / articles)
+   ========================================================================= */
+
+/* ---------- Type ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Font families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, monospace;
+
+  /* Type scale — sizes observed in the portfolio */
+  --fs-hero:     3.2rem;  /* h1 hero title     */
+  --fs-logo:     3.5rem;  /* wordmark          */
+  --fs-h2:       1.75rem; /* contact / section */
+  --fs-section:  1.5rem;  /* section-title     */
+  --fs-h3:       1.25rem; /* bento card titles */
+  --fs-body-lg:  1.1rem;  /* lead copy / email */
+  --fs-body:     1.0rem;  /* default body      */
+  --fs-sm:       0.9rem;  /* nav links         */
+  --fs-xs:       0.8rem;  /* tag chips         */
+  --fs-micro:    0.72rem; /* stat label / tip  */
+
+  /* Weights */
+  --fw-light:      300;
+  --fw-regular:    400;
+  --fw-medium:     500;
+  --fw-semibold:   600;
+  --fw-bold:       700;
+  --fw-black:      800;
+
+  /* Letter-spacing */
+  --tracking-tight:  -0.02em;  /* headlines   */
+  --tracking-normal:  0;
+  --tracking-wide:    0.5px;   /* eyebrows    */
+  --tracking-wider:   0.08em;  /* section lbl */
+
+  /* Line-heights */
+  --lh-tight:  1.1;   /* hero h1 */
+  --lh-snug:   1.4;   /* card titles */
+  --lh-base:   1.6;   /* body */
+
+  /* ---------- Color — Light (default) ---------- */
+  --bg:            #ffffff;
+  --bg-secondary:  #f8fafc;
+  --bg-card:       #ffffff;
+  --border:        #e2e8f0;
+  --border-hover:  #cbd5e1;
+  --text:          #0f172a;
+  --text-secondary:#64748b;
+  --accent:        #3b82f6;
+  --accent-light:  #eff6ff;
+
+  /* Signature gradient */
+  --gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+
+  /* Status palette */
+  --success:       #16a34a;
+  --success-dot:   #22c55e;
+  --success-tint:  rgba(34, 197, 94, 0.10);
+  --success-ring:  rgba(34, 197, 94, 0.30);
+
+  /* Semantic fg aliases */
+  --fg1: var(--text);
+  --fg2: var(--text-secondary);
+  --fg-accent: var(--accent);
+
+  /* Shadows */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.05);
+  --shadow-lg:  0 8px 30px rgba(0,0,0,0.08);
+  --shadow-hover-accent: 0 10px 40px rgba(0,0,0,0.10);
+  --shadow-cta: 0 10px 30px rgba(15,23,42,0.15);
+  --shadow-accent-glow: 0 20px 60px rgba(59,130,246,0.25);
+
+  /* Radii */
+  --radius-sm:  5px;
+  --radius-md:  8px;
+  --radius-lg:  10px;
+  --radius-xl:  12px;
+  --radius-2xl: 14px;
+  --radius-3xl: 16px;
+  --radius-pill: 50px;
+  --radius-full: 9999px;
+
+  /* Spacing (1rem = 16px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Layout */
+  --container-max: 1000px;
+  --layout-max:    1200px;
+  --sidebar-w:     220px;
+  --right-w:       280px;
+  --nav-h:         72px;
+
+  /* Motion */
+  --ease-out-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:  0.2s;
+  --dur-base:  0.3s;
+  --dur-slow:  0.6s;
+}
+
+/* ---------- Color — Dark ---------- */
+body.dark,
+.dark {
+  --bg:            #0f172a;
+  --bg-secondary:  #1e293b;
+  --bg-card:       #1e293b;
+  --border:        #334155;
+  --border-hover:  #475569;
+  --text:          #f1f5f9;
+  --text-secondary:#94a3b8;
+  --accent:        #60a5fa;
+  --accent-light:  #1e3a5f;
+}
+
+/* =========================================================================
+   Semantic type — drop-in classes
+   ========================================================================= */
+
+body, .p {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-base);
+  color: var(--text);
+  background: var(--bg-secondary);
+}
+
+.h1 {
+  font-size: var(--fs-hero);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+}
+.h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  color: var(--text);
+}
+.h-section {
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+}
+.h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+}
+.eyebrow {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+.label-micro {
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-secondary);
+  font-weight: var(--fw-bold);
+}
+.text-muted { color: var(--text-secondary); }
+.text-accent { color: var(--accent); }
+
+/* Brand gradient text — "Naufal Zainul Arifin", logo dot */
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Monospace */
+.code, code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}

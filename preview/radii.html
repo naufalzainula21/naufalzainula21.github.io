@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{padding:18px;font-family:var(--font-sans);color:#0f172a;}
+  .row{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;}
+  .sample{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .box{background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#64748b;font-family:var(--font-mono);}
+  .r10{width:80px;height:64px;border-radius:10px;}
+  .r12{width:80px;height:64px;border-radius:12px;}
+  .r14{width:80px;height:64px;border-radius:14px;}
+  .r16{width:80px;height:64px;border-radius:16px;}
+  .pill{width:100px;height:36px;border-radius:9999px;}
+  .circle{width:64px;height:64px;border-radius:50%;}
+  .lbl{font-size:11px;color:#64748b;font-family:var(--font-mono);}
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sample"><div class="box r10">10</div><span class="lbl">btn/input</span></div>
+    <div class="sample"><div class="box r12">12</div><span class="lbl">CTA</span></div>
+    <div class="sample"><div class="box r14">14</div><span class="lbl">feed card</span></div>
+    <div class="sample"><div class="box r16">16</div><span class="lbl">default card</span></div>
+    <div class="sample"><div class="box pill">pill</div><span class="lbl">chip/badge</span></div>
+    <div class="sample"><div class="box circle">50%</div><span class="lbl">avatar</span></div>
+  </div>
+</body>
+</html>

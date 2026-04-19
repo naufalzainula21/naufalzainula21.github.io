@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:#f8fafc;}
+  body{padding:22px;font-family:var(--font-sans);color:#0f172a;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);border:1px solid #e2e8f0;border-radius:16px;}
+  .logo{font-weight:800;font-size:1.6rem;}
+  .logo span{background:linear-gradient(135deg,#3b82f6 0%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .links{display:flex;gap:1.5rem;list-style:none;padding:0;margin:0;}
+  .links a{color:#64748b;text-decoration:none;font-size:.9rem;font-weight:500;position:relative;padding-bottom:2px;}
+  .links a.active{color:#0f172a;}
+  .links a.active::after{content:'';position:absolute;left:0;right:0;bottom:-3px;height:2px;background:#3b82f6;border-radius:2px;}
+  .right{display:flex;align-items:center;gap:.75rem;}
+  .toggle{width:36px;height:36px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;display:flex;align-items:center;justify-content:center;}
+</style>
+</head>
+<body>
+  <div class="nav">
+    <span class="logo">n<span>.</span></span>
+    <ul class="links"><li><a class="active" href="#">Home</a></li><li><a href="#">About</a></li><li><a href="#">Experience</a></li><li><a href="#">Portfolio</a></li><li><a href="#">Contact</a></li></ul>
+    <div class="right"><div class="toggle">🌙</div></div>
+  </div>
+</body>
+</html>

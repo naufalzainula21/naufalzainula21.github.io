@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{padding:22px;font-family:var(--font-sans);display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);padding:.4rem 1rem;border-radius:50px;font-size:.8rem;color:#16a34a;font-weight:500;}
+  .dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  .chip{padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:500;border:1px solid #e2e8f0;background:#fff;color:#64748b;cursor:pointer;}
+  .chip.active{background:#3b82f6;border-color:#3b82f6;color:#fff;}
+  .tag{background:#f8fafc;border:1px solid #e2e8f0;padding:.4rem .8rem;border-radius:8px;font-size:.8rem;color:#64748b;}
+  .tag-accent{background:#eff6ff;color:#3b82f6;padding:.25rem .5rem;border-radius:4px;font-size:.75rem;}
+</style>
+</head>
+<body>
+  <span class="badge"><span class="dot"></span>Open to work</span>
+  <button class="chip active">All</button>
+  <button class="chip">SQL</button>
+  <button class="chip">GIS</button>
+  <span class="tag">Python</span>
+  <span class="tag-accent">Database</span>
+</body>
+</html>

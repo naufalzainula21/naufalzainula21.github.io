@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{padding:20px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .sw{border-radius:12px;padding:16px;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;height:96px;}
+  .sw .name{font-size:12px;font-weight:600;font-family:var(--font-sans);}
+  .sw .hex{font-size:11px;opacity:.75;font-family:var(--font-mono);letter-spacing:.02em;}
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="sw" style="background:#ffffff;color:#0f172a;"><span class="name">bg</span><span class="hex">#ffffff</span></div>
+    <div class="sw" style="background:#f8fafc;color:#0f172a;"><span class="name">bg-secondary</span><span class="hex">#f8fafc</span></div>
+    <div class="sw" style="background:#0f172a;color:#f1f5f9;"><span class="name">text</span><span class="hex">#0f172a</span></div>
+    <div class="sw" style="background:#64748b;color:#ffffff;"><span class="name">text-secondary</span><span class="hex">#64748b</span></div>
+    <div class="sw" style="background:#3b82f6;color:#ffffff;"><span class="name">accent</span><span class="hex">#3b82f6</span></div>
+    <div class="sw" style="background:#eff6ff;color:#3b82f6;"><span class="name">accent-light</span><span class="hex">#eff6ff</span></div>
+  </div>
+</body>
+</html>

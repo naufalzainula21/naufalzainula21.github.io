@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{padding:22px;font-family:var(--font-sans);color:#0f172a;}
+  .stack{display:grid;gap:10px;}
+  .tf{display:flex;align-items:center;gap:.5rem;padding:.6rem .85rem;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc;max-width:300px;}
+  .tf.focus{border-color:#3b82f6;background:#fff;}
+  .tf svg{width:15px;height:15px;color:#64748b;}
+  .tf input{border:none;background:none;outline:none;font-family:inherit;font-size:.875rem;color:#0f172a;width:100%;}
+  .tf input::placeholder{color:#64748b;}
+  .lbl{font-size:11px;color:#64748b;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+  <div class="stack">
+    <span class="lbl">search — default</span>
+    <div class="tf">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input placeholder="Search projects…">
+    </div>
+    <span class="lbl">search — focused</span>
+    <div class="tf focus">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input value="GIS" placeholder="Search projects…">
+    </div>
+  </div>
+</body>
+</html>

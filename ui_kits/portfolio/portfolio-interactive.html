@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Portfolio — Interactive</title>
+  <link rel="icon" href="../../assets/favicon.svg"/>
+  <link rel="stylesheet" href="../../colors_and_type.css"/>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      transition: background .3s, color .3s;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink  { 50% { opacity: 0; } }
+    @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+
+    /* Tweaks panel */
+    .tweaks-panel {
+      position: fixed; right: 20px; bottom: 20px; z-index: 300;
+      width: 280px; padding: 16px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+      font-size: 13px; display: none;
+    }
+    .tweaks-panel.open { display: block; }
+    .tweaks-panel h4 {
+      margin: 0 0 10px; font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--text-secondary);
+    }
+    .tweak-row { margin-bottom: 12px; }
+    .tweak-row label { display: block; margin-bottom: 4px; font-size: 11px; color: var(--text-secondary); font-weight: 500; }
+    .tweak-opts { display: flex; gap: 4px; }
+    .tweak-opts button {
+      flex: 1; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg-secondary); color: var(--text-secondary); cursor: pointer;
+      font-family: inherit; font-size: 11px; font-weight: 600; text-transform: capitalize;
+    }
+    .tweak-opts button.active { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="FeedShell.jsx"></script>
+  <script type="text/babel" src="projectsData.jsx"></script>
+  <script type="text/babel" src="InteractivePortfolio.jsx"></script>
+  <script type="text/babel" src="CaseStudyReader.jsx"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo, useCallback } = React;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "readerStyle": "slideover",
+      "density": "comfortable",
+      "transition": "lift"
+    }/*EDITMODE-END*/;
+
+    const parseHash = () => {
+      const h = (location.hash || '').replace(/^#/, '');
+      const m = h.match(/^\/case\/([\w-]+)$/);
+      return m ? { view: 'case', id: m[1] } : { view: 'feed' };
+    };
+
+    const App = () => {
+      const [dark, setDark] = useState(() => { try { return localStorage.getItem('naufal-theme') === 'dark'; } catch(e) { return false; } });
+      const [route, setRoute] = useState(parseHash());
+      const [activeTag, setActiveTag] = useState('all');
+      const [activeType, setActiveType] = useState('all');
+      const [search, setSearch] = useState('');
+      const [readerId, setReaderId] = useState(null);
+
+      const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+      const [tweaksOpen, setTweaksOpen] = useState(false);
+
+      useEffect(() => {
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.body.classList.toggle('dark', dark);
+        try { localStorage.setItem('naufal-theme', dark ? 'dark' : 'light'); } catch(e) {}
+      }, [dark]);
+
+      useEffect(() => {
+        const onHash = () => setRoute(parseHash());
+        window.addEventListener('hashchange', onHash);
+        return () => window.removeEventListener('hashchange', onHash);
+      }, []);
+
+      /* Tweaks: host protocol */
+      useEffect(() => {
+        const onMsg = (e) => {
+          if (!e.data || typeof e.data !== 'object') return;
+          if (e.data.type === '__activate_edit_mode')   setTweaksOpen(true);
+          if (e.data.type === '__deactivate_edit_mode') setTweaksOpen(false);
+        };
+        window.addEventListener('message', onMsg);
+        window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+        return () => window.removeEventListener('message', onMsg);
+      }, []);
+
+      const setTweak = (k, v) => {
+        const next = { ...tweaks, [k]: v };
+        setTweaks(next);
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*');
+      };
+
+      const nav = (id) => {
+        if (id === 'home' || id === 'articles') location.href = 'index.html#' + id;
+        else { location.hash = ''; setRoute({ view: 'feed' }); }
+      };
+
+      const projects = window.PROJECTS_FULL || [];
+      const byId = useMemo(() => Object.fromEntries(projects.map(p => [p.id, p])), [projects]);
+
+      const filtered = projects.filter(p => {
+        const tagMatch = activeTag === 'all' || p.tags.includes(activeTag);
+        const typeMatch = activeType === 'all' || p.type === activeType;
+        const q = (search || '').toLowerCase();
+        const sMatch = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q);
+        return tagMatch && typeMatch && sMatch;
+      });
+
+      const openReader = useCallback((id) => {
+        if (tweaks.readerStyle === 'route') {
+          location.hash = '/case/' + id;
+        } else {
+          setReaderId(id);
+        }
+      }, [tweaks.readerStyle]);
+
+      const openFull = useCallback((id) => {
+        setReaderId(null);
+        location.hash = '/case/' + id;
+      }, []);
+
+      const closeReader = useCallback(() => setReaderId(null), []);
+
+      // Dedicated case route
+      if (route.view === 'case' && byId[route.id]) {
+        return (
+          <>
+            <FullCaseReader project={byId[route.id]} onBack={() => { location.hash = ''; }}/>
+            <TweaksPanel open={tweaksOpen} tweaks={tweaks} onChange={setTweak}/>
+          </>
+        );
+      }
+
+      return (
+        <>
+          <div data-screen-label="02 Portfolio \u00b7 Interactive" style={{
+            display: 'grid', gridTemplateColumns: '220px minmax(0, 1fr) 280px',
+            minHeight: '100vh', background: 'var(--bg-secondary)',
+          }}>
+            <Sidebar active="portfolio" onNav={nav} dark={dark} onToggleDark={() => setDark(d => !d)}/>
+            <main style={{
+              padding: '1.75rem 2rem 4rem',
+              borderLeft: '1px solid var(--border)', borderRight: '1px solid var(--border)',
+              background: 'var(--bg-secondary)', minWidth: 0,
+            }}>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-.01em', color: 'var(--text)', margin: '0 0 .25rem' }}>
+                  Portfolio
+                </h1>
+                <p style={{ fontSize: '.9rem', color: 'var(--text-secondary)', margin: 0 }}>
+                  Selected projects and case studies. Tap any card to read the full story.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1.25rem 0 1rem' }}>
+                <span style={{ fontSize: '.78rem', color: 'var(--text-secondary)' }}>
+                  Showing {filtered.length} of {projects.length}
+                </span>
+                <span style={{
+                  fontSize: '.78rem', color: 'var(--text-secondary)',
+                  background: 'var(--bg-card)', border: '1px solid var(--border)',
+                  padding: '.2rem .65rem', borderRadius: 20,
+                }}>Masonry</span>
+              </div>
+
+              {filtered.length === 0
+                ? <div style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-secondary)' }}>
+                    <p style={{ fontSize: '.9rem' }}>No projects match this filter.</p>
+                  </div>
+                : <MasonryGrid projects={filtered} onOpen={openReader} density={tweaks.density}/>}
+            </main>
+
+            <RightRail
+              activeTag={activeTag} onTag={setActiveTag}
+              activeType={activeType} onType={setActiveType}
+              search={search} onSearch={setSearch}/>
+          </div>
+
+          {readerId && <SlideOverReader project={byId[readerId]} onClose={closeReader} onOpenFull={openFull}/>}
+
+          <TweaksPanel open={tweaksOpen} tweaks={tweaks} onChange={setTweak}/>
+        </>
+      );
+    };
+
+    const TweaksPanel = ({ open, tweaks, onChange }) => (
+      <div className={'tweaks-panel ' + (open ? 'open' : '')}>
+        <h4>Tweaks</h4>
+        <TweakRow label="Reader style" value={tweaks.readerStyle} onChange={v => onChange('readerStyle', v)}
+          options={[['slideover','Slide-over'],['route','Full page']]}/>
+        <TweakRow label="Card density" value={tweaks.density} onChange={v => onChange('density', v)}
+          options={[['comfortable','Comfy'],['cozy','Cozy'],['compact','Compact']]}/>
+        <TweakRow label="Hover transition" value={tweaks.transition} onChange={v => onChange('transition', v)}
+          options={[['lift','Lift'],['glow','Glow'],['none','None']]}/>
+      </div>
+    );
+    const TweakRow = ({ label, value, onChange, options }) => (
+      <div className="tweak-row">
+        <label>{label}</label>
+        <div className="tweak-opts">
+          {options.map(([v, l]) => (
+            <button key={v} className={value === v ? 'active' : ''} onClick={() => onChange(v)}>{l}</button>
+          ))}
+        </div>
+      </div>
+    );
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{padding:0;font-family:var(--font-sans);color:#0f172a;}
+  .hero{position:relative;height:210px;background:url('../assets/hero-bg.jpg') center/cover;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.75);}
+  .hero .inner{position:relative;z-index:1;padding:20px 24px;}
+  .hero h1{font-size:1.8rem;font-weight:800;letter-spacing:-.02em;margin:0 0 4px;}
+  .hero h1 span{background:linear-gradient(135deg,#3b82f6 0%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero p{margin:0;color:#64748b;font-size:.9rem;max-width:440px;}
+  .meta{font-family:var(--font-mono);font-size:11px;color:#64748b;padding:8px 24px 14px;}
+</style>
+</head>
+<body>
+  <div class="hero"><div class="inner"><h1>I'm <span>Naufal</span></h1><p>Textured white background, overlaid with 75% white. Content sits on top; the texture is nearly subliminal.</p></div></div>
+  <div class="meta">assets/hero-bg.jpg · rgba(255,255,255,.75) overlay · dark: rgba(15,23,42,.88)</div>
+</body>
+</html>
